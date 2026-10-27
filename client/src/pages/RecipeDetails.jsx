@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { deleteRecipe, getErrorMessage, getRecipe } from '../api/recipes';
+import { deleteRecipe, getErrorMessage, getRecipe, getRecipeByName } from '../api/recipes';
 import { formatMinutes, formatDate } from '../utils/time';
 
 function RecipeDetails() {
-  const { id } = useParams();
+  const { name } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const [recipe, setRecipe] = useState(null);
@@ -22,7 +22,7 @@ function RecipeDetails() {
     setIsLoading(true);
     setError('');
 
-    getRecipe(id)
+    getRecipeByName(name)
       .then((data) => {
         if (!ignore) setRecipe(data);
       })
@@ -36,7 +36,7 @@ function RecipeDetails() {
     return () => {
       ignore = true;
     };
-  }, [id]);
+  }, [name]);
 
   const handleDelete = async () => {
     if (!window.confirm(`Delete "${recipe.title}"? This cannot be undone.`)) return;
@@ -120,11 +120,13 @@ function RecipeDetails() {
         ))}
       </dl>
 
+      {console.log("recipe", recipe)}
+
       <div className="row g-4">
         <section className="col-md-4">
           <h2 className="h4">Ingredients</h2>
           <ul className="list-group list-group-flush">
-            {recipe.ingredients.map((ingredient, index) => (
+            {recipe?.ingredients.map((ingredient, index) => (
               <li className="list-group-item bg-transparent px-0" key={index}>{ingredient}</li>
             ))}
           </ul>
@@ -132,7 +134,7 @@ function RecipeDetails() {
         <section className="col-md-8">
           <h2 className="h4">Instructions</h2>
           <ol className="list-group list-group-numbered">
-            {recipe.instructions.map((step, index) => (
+            {recipe?.instructions.map((step, index) => (
               <li className="list-group-item" key={index}>{step}</li>
             ))}
           </ol>

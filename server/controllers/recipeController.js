@@ -64,7 +64,15 @@ async function getRecipes(req, res) {
 }
 
 async function getRecipeById(req, res) {
-  const recipe = await findRecipeOrRespond(req, res);
+  const filter = {
+    slug: {
+      $regex: `^${escapeRegex(req.params.name.trim())}$`,
+      $options: 'i'
+    }
+  }
+
+  const recipe = await Recipe.findOne(filter);
+
   if (!recipe) return;
 
   res.json({
@@ -84,7 +92,17 @@ async function createRecipe(req, res) {
     servings,
     ingredients,
     instructions,
+    slug
   } = req.body;
+
+  const exists = await Recipe.findOne({ slug });
+
+  if(exists){
+    return res.status(400).json({
+      success: false,
+      message: "This slug already exists try to enter different one"
+    });
+  }
 
   const recipeData = {
     title,
@@ -96,6 +114,7 @@ async function createRecipe(req, res) {
     servings,
     ingredients,
     instructions,
+    slug
   };
 
   const image = req.file

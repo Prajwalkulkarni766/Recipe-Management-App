@@ -16,7 +16,7 @@ const {
 const router = express.Router();
 
 router.get('/', getRecipes);
-router.get('/:id', validateRecipeId, handleValidationErrors, getRecipeById);
+router.get('/:name', getRecipeById);
 router.post('/', upload, validateRecipe, handleValidationErrors, createRecipe);
 router.put('/:id', upload, validateRecipeId, handleValidationErrors, validateRecipe, handleValidationErrors, updateRecipe);
 router.delete('/:id', validateRecipeId, handleValidationErrors, deleteRecipe);

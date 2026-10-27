@@ -14,6 +14,11 @@ export async function getRecipe(id) {
   return response.data.data;
 }
 
+export async function getRecipeByName(name) {
+  const response = await api.get(`/recipes/${name}`);
+  return response.data.data;
+}
+
 export async function createRecipe(formData) {
   const response = await api.post('/recipes', formData);
   return response.data;

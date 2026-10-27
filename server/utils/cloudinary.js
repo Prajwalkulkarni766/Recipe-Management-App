@@ -36,7 +36,7 @@ function uploadImage(buffer) {
 
   return new Promise((resolve, reject) => {
     const stream = cloudinary.uploader.upload_stream(
-      { folder: RECIPE_FOLDER, resource_type: 'image' },
+      { folder: RECIPE_FOLDER, resource_type: 'image', public_id: Date.now() },
       (error, result) => {
         if (error) {
           console.error('Cloudinary upload failed:', error.message);

@@ -10,6 +10,7 @@ const LIMITS = {
   listItems: 50,
   minutes: 10080,
   servings: 100,
+  slug: 100
 };
 
 function noEmptyItems(items) {
@@ -63,6 +64,12 @@ const recipeSchema = new mongoose.Schema(
     instructions: {
       type: [{ type: String, trim: true, maxlength: LIMITS.instruction }],
       validate: [noEmptyItems, 'Instructions cannot be empty'],
+    },
+    slug: {
+      type: String,
+      required: [true, 'Slug is required'],
+      trim: true,
+      maxlength: LIMITS.slug,
     },
   },
   { timestamps: true }

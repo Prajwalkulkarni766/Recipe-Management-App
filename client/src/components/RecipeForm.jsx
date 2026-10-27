@@ -11,6 +11,7 @@ const TEXT_FIELDS = [
   { name: 'title', label: 'Title', maxLength: 100 },
   { name: 'cuisine', label: 'Cuisine', maxLength: 50, placeholder: 'e.g. Italian' },
   { name: 'category', label: 'Category', maxLength: 50, placeholder: 'e.g. Dessert' },
+  { name: 'slug', label: 'Slug', maxLength: 50, placeholder: 'e.g. puranpoli' },
 ];
 
 const NUMBER_FIELDS = [
@@ -45,6 +46,7 @@ function getInitialValues(recipe) {
     servings: recipe?.servings?.toString() || '',
     ingredients: recipe?.ingredients?.length ? [...recipe.ingredients] : [''],
     instructions: recipe?.instructions?.length ? [...recipe.instructions] : [''],
+    slug: recipe?.slug || ''
   };
 }
 

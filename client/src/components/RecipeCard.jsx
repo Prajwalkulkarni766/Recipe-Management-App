@@ -4,7 +4,7 @@ import { formatMinutes } from '../utils/time';
 function RecipeCard({ recipe, onDelete, isDeleting }) {
   return (
     <article className="card h-100 shadow-sm">
-      <Link to={`/recipes/${recipe._id}`} className="ratio ratio-4x3">
+      <Link to={`/recipes/${recipe.slug}`} className="ratio ratio-4x3">
         <img
           className="card-img-top object-fit-cover bg-body-secondary"
           src={recipe.image?.url || '/placeholder.svg'}
@@ -18,7 +18,7 @@ function RecipeCard({ recipe, onDelete, isDeleting }) {
           <span className="badge rounded-pill text-bg-light border">{recipe.category}</span>
         </div>
         <h3 className="card-title h5">
-          <Link to={`/recipes/${recipe._id}`} className="link-body-emphasis text-decoration-none">
+          <Link to={`/recipes/${recipe.slug}`} className="link-body-emphasis text-decoration-none">
             {recipe.title}
           </Link>
         </h3>
@@ -27,7 +27,7 @@ function RecipeCard({ recipe, onDelete, isDeleting }) {
           Prep {formatMinutes(recipe.preparationTime)} · Cook {formatMinutes(recipe.cookingTime)}
         </p>
         <div className="d-flex gap-2 mt-auto pt-3">
-          <Link to={`/recipes/${recipe._id}`} className="btn btn-sm btn-outline-primary">View</Link>
+          <Link to={`/recipes/${recipe.slug}`} className="btn btn-sm btn-outline-primary">View</Link>
           <Link to={`/recipes/${recipe._id}/edit`} className="btn btn-sm btn-outline-secondary">Edit</Link>
           <button
             type="button"
